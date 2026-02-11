@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _loadUserEmail() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      // التأكد من جلب الإيميل الصحيح للمستخدم المسجل
+      
       _userEmail = prefs.getString('user_email') ?? "User"; 
     });
   }
@@ -40,8 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final List<Widget> pages = [
       _buildHomeContent(),
-      _buildAppliedContent(), // تبويب التقديمات
-      _buildSavedContent(),    // تبويب المحفوظات
+      _buildAppliedContent(), 
+      _buildSavedContent(),    
       _buildProfileContent(),
     ];
 
@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: (index) {
           setState(() {
             _currentIndex = index;
-            // تحديث البيانات (Refresh) عند الانتقال لتبويب Applied أو Saved
+           
             if (index == 1 || index == 2) {
               _loadUserEmail(); 
             }
@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // --- محتوى تبويب التقديمات (Applied) ---
+  
   Widget _buildAppliedContent() {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -87,14 +87,14 @@ class _HomeScreenState extends State<HomeScreen> {
         foregroundColor: Colors.black
       ),
       body: FutureBuilder<List<Map<String, dynamic>>>(
-        // هنا نقوم بالبحث عن الطلبات التي حالتها Applied فقط
+       
         future: DatabaseHelper().getStudentApplications(_userEmail), 
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
           
-          // تصفية البيانات لعرض الـ Applied فقط
+          
           final allData = snapshot.data ?? [];
           final appliedList = allData.where((item) => item['status'] == 'Applied').toList();
 
@@ -111,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 app['companyName'] ?? 'Unknown',
                 app['jobTitle'] ?? 'Training',
                 app['status'] ?? 'Applied',
-                Colors.blue, // لون الطلبات المقدمة
+                Colors.blue, 
               );
             },
           );
@@ -120,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // --- محتوى تبويب المحفوظات (Saved) ---
+  
   Widget _buildSavedContent() {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -138,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return const Center(child: CircularProgressIndicator());
           }
 
-          // تصفية البيانات لعرض الـ Saved فقط
+          
           final allData = snapshot.data ?? [];
           final savedList = allData.where((item) => item['status'] == 'Saved').toList();
 
@@ -155,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 app['companyName'] ?? 'Unknown',
                 "Saved for later",
                 "Saved",
-                Colors.green, // لون الحفظ
+                Colors.green, 
               );
             },
           );
@@ -164,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // ودجت للحالة الفارغة لتقليل تكرار الكود
+  
   Widget _buildEmptyState(IconData icon, String message) {
     return Center(
       child: Column(
@@ -178,8 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // بقية دوال الـ UI (Home, Profile, Header, SearchBar, الخ...) تبقى كما هي في كودك الأصلي
-  // مع إضافة ListTile لتنسيق الـ StatusTile بشكل جميل
+  
   
   Widget _buildStatusTile(String company, String job, String status, Color color) {
     return Card(
@@ -199,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // ... (احتفظي ببقية الدوال: _buildHomeContent, _buildProfileContent, _buildHeader, إلخ كما هي)
+  
   
   Widget _buildHomeContent() {
     return SafeArea(

@@ -38,7 +38,7 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen> {
       'companyName': widget.companyName,
       'jobTitle': 'Internship Program',
       'applicantName': _userEmail, 
-      'status': 'Saved' // الحالة هنا Saved لتبويب المحفوظات
+      'status': 'Saved' 
     };
 
     await DatabaseHelper().insertApplication(row);

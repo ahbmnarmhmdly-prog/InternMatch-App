@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart'; // إضافة المكتبة
+import 'package:shared_preferences/shared_preferences.dart'; 
 import 'database_helper.dart'; 
 
 class TrainingListScreen extends StatefulWidget {
@@ -78,7 +78,7 @@ class _TrainingListScreenState extends State<TrainingListScreen> {
     );
   }
 
-  // التعديل هنا: جلب الإيميل الحقيقي لضمان ظهور الطلب في الـ Home
+  
   void _confirmApply(int index, String jobTitle) async {
     final prefs = await SharedPreferences.getInstance();
     String userEmail = prefs.getString('user_email') ?? "Guest";
@@ -86,8 +86,8 @@ class _TrainingListScreenState extends State<TrainingListScreen> {
     Map<String, dynamic> application = {
       'companyName': widget.companyName,
       'jobTitle': jobTitle,
-      'applicantName': userEmail, // استخدام الإيميل الحقيقي
-      'status': 'Applied'         // الحالة لتظهر في تبويب Applied
+      'applicantName': userEmail, 
+      'status': 'Applied'         
     };
 
     await DatabaseHelper().insertApplication(application);
